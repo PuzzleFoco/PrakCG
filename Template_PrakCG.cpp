@@ -181,11 +181,6 @@ void displayFunc()
 }
 
 
-//kran kra;
-//list<container> listContainer;
-//container containe;
-
-
 char cameraMode = 0;
 float cockpit[3] = { 0.3f, 2.4f, 4.4f };
 
@@ -221,45 +216,22 @@ void setCamera()
 	// globale, mausgesteuerte Sicht
 	if (cameraMode == 0)
 		gluLookAt(x, y, z, 0, 0, 0, 0, Oben, 0);
-	// "Trailer"-Ansicht
-	/*
+	// "Obenansicht"-Ansicht
+	
 	else if (cameraMode == 1)
 	{
-		float alpha = trailer.rot * M_PI / 180.0f;
-		float c = cos(alpha), s = sin(alpha);
-		float vec[3] = { s*-10.0f, 50, c*-10.0f };
-		gluLookAt(trailer.pos[0] + vec[0], vec[1], trailer.pos[1] + vec[2],
-			truck.pos[0], 0, truck.pos[1],
-			0, Oben, 0);
+		gluLookAt(objects.kra.posKrangerust, 10, objects.kra.posHook,
+			objects.kra.posKrangerust, 1, objects.kra.posHook,
+			5, 0, 0);
 	}
-	// "Cockpit"-Ansicht
+	// "Hookansicht"-Ansicht	
 	else
 	{
-		float alpha = truck.rot * M_PI / 180.0f;
-		float c = cos(alpha), s = sin(alpha);
-		float pos[3] = { cockpit[0] * c + cockpit[2] * s + truck.pos[0],
-						 cockpit[1],
-						-cockpit[0] * s + cockpit[2] * c + truck.pos[1] };
-		// (x,y,z) noch um Winkel alpha der Zugmaschine drehen (um Y)
-		float vec2[3] = { x*c + s * z, y, -s * x + c * z };
-		gluLookAt(pos[0], pos[1], pos[2],
-			pos[0] + vec2[0], pos[1] + vec2[1], pos[2] + vec2[2],
+		gluLookAt(objects.kra.posKrangerust, 4, objects.kra.posHook,
+			objects.kra.posKrangerust + 1, 2, objects.kra.posHook,
 			0, Oben, 0);
 	}
-	*/
 }
-
-/*
-void erstellecontainer()
-{
-	for (int i = 0; i < 1; i++)
-	{
-		container contemp;
-		contemp.x = i;
-		listContainer.push_back(contemp);
-	}
-}
-*/
 
 
 void drawScene()
@@ -334,5 +306,13 @@ void drawScene()
 		it->update(objects.kra);
 		it->draw();
 	}	
+
+	// TODO: Kameramodus wechseln
+	if (1 == key.keyState('y') || 1 == key.keyState('Y'))		// Kameramodus wechseln
+	{
+		cameraMode = ++cameraMode % 3;
+		cg_globState::cameraHelper[0] = 0;
+		cg_globState::cameraHelper[1] = 0;
+	}
 	
 }
