@@ -100,6 +100,7 @@
     <ClCompile Include="light.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Template_PrakCG.cpp" />
+    <ClCompile Include="Texturen.cpp" />
     <ClCompile Include="wavefront.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -112,8 +113,12 @@
     <ClInclude Include="kran.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="Objects.h" />
+    <ClInclude Include="Texturen.h" />
     <ClInclude Include="wavefront.h" />
     <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Template_PrakCG.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

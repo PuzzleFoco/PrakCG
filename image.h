@@ -1,7 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-
+#include <stdio.h>
 
 #ifdef _WIN32
 	#include "Include/freeglut.h"

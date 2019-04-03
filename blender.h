@@ -1,10 +1,9 @@
 #pragma once
 #include "Include/freeglut.h"
-#include "Include/glext.h"
 #include "wavefront.h"
 
 
-#define num_objects 7
+#define num_objects 8
 extern object3D *blender[num_objects];
 enum blenderObjects {
 	Krangerust,
@@ -13,7 +12,8 @@ enum blenderObjects {
 	Kranhookstab,
 	HMitte,
 	cargo,
-	Spotlight
+	Spotlight,
+	Schild
 };
 
 void loadObjects();

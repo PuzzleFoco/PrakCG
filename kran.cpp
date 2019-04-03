@@ -6,6 +6,7 @@
 #include "help.h"
 #include "light.h"
 #include "Objects.h"
+#include "Texturen.h"
 
 kran::kran()
 {
@@ -82,6 +83,59 @@ void kran::draw()
 	glPushMatrix();
 	glTranslatef(posKrangerust, 0, 0);
 	drawobject(blender[Krangerust]);
+
+	glColor3f(1, 1, 1);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+
+	// Quadric erzeugen
+	GLUquadricObj *quadric = gluNewQuadric();
+
+	// Quadric texturieren
+	gluQuadricNormals(quadric, GLU_OUTSIDE);
+	gluQuadricTexture(quadric, GL_TRUE);
+
+	// TODO: Quadric texturieren
+
+	// Texturmodus wählen: GL_MODULATE, GL_REPLACE, GL_BLEND
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	// Disk
+	glPushMatrix();
+	glTranslatef(-7.5, 0.0, 0.0);
+
+	// TODO: Binden der TUX-Textur
+
+	textures[0].bind();  // tux
+	gluDisk(quadric, 0.0, 3.0, 35, 10);
+	glPopMatrix();
+	
+	// Quadric löschen
+	gluDeleteQuadric(quadric);
+	/*
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);									// Polygon ist GELB
+	glNormal3f(0, 0, 1);									// Normale ist Z
+
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.6f, 1.0f, -2.0f);	//Untenlinks
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(0.6f, 1.0f, -2.0f);	//Untenrechts
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.6f, 2.0f, -2.0f);		//Oben rechts
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.6f, 2.0f, -2.0f);	//Oben links
+	glEnd();
+	*/
+	/*
+	glEnable(GL_TEXTURE_2D);
+	textures[MaximaleTragkraft].bind();
+	
+
+	drawobject(blender[Schild]);
+	glDisable(GL_TEXTURE_2D);
+	*/
 
 	glPushMatrix();
 	glTranslatef(0, 0, posHook);

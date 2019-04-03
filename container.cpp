@@ -28,6 +28,25 @@ void container::draw()
 	glPushMatrix();
 		glTranslatef(x, z, y);
 		glRotatef(rotated, 0, 1, 0);
+
+		/*
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		glEnable(GL_CULL_FACE); 
+		glCullFace(GL_BACK);
+		glBegin(GL_QUADS);
+		glColor3f(1, 1, 1);									// Polygon ist GELB
+		glNormal3f(0, 0, 1);									// Normale ist Z
+
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.6f, 0.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.6f, 0.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(1.0f, 1.6f, 0.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.6f, 0.0f);
+		glEnd();
+		*/
+
 		drawobject(blender[cargo]);
 	glPopMatrix();
 }

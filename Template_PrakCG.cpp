@@ -11,13 +11,11 @@
 #include "Include/glext.h"
 #include "help.h"
 #include "window.h"
-#include "wavefront.h"
 #include "input.h"
 #include "light.h"
-#include "kran.h"
-#include "container.h"
-#include "blender.h"
 #include "Objects.h"
+#include "Texturen.h"
+#include "blender.h"
 
 using namespace std;
 
@@ -56,6 +54,7 @@ const char *spalte2[] =
 void setCamera();		// Kamera platzieren, siehe Maus-Callbacks
 void drawScene();		// Zeichnet die Szene im Weltkoordinatensystem
 
+void initTextures();
 void loadObjects();
 
 
@@ -68,6 +67,7 @@ int main(int argc, char **argv)
 
 	// hier Objekte laden, erstellen etc.
 	loadObjects();
+	initTextures();
 
 	// Die Hauptschleife starten
 	glutMainLoop();
@@ -298,21 +298,22 @@ void drawScene()
 			it->attatch(objects.kra);
 		}
 	}
-	
+
+	//glEnable(GL_TEXTURE_2D);
 	objects.kra.update();
 	objects.kra.draw();
-		
+	//glDisable(GL_TEXTURE_2D);
+	
 	for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
 		it->update(objects.kra);
 		it->draw();
 	}	
-
+	
 	// TODO: Kameramodus wechseln
 	if (1 == key.keyState('y') || 1 == key.keyState('Y'))		// Kameramodus wechseln
 	{
 		cameraMode = ++cameraMode % 3;
 		cg_globState::cameraHelper[0] = 0;
 		cg_globState::cameraHelper[1] = 0;
-	}
-	
+	}	
 }

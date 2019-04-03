@@ -9,7 +9,8 @@ const char* blender_paths[num_objects] = {
 	"Kranhookstab.obj" ,
 	"HMitte.obj" ,
 	"cargo.obj" ,
-	"Spotlight.obj"
+	"Spotlight.obj",
+	"Schild.obj"
 };
 
 void loadObjects() {

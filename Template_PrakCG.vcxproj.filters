@@ -48,6 +48,9 @@
     <ClCompile Include="Objects.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Texturen.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="help.h">
@@ -80,5 +83,13 @@
     <ClInclude Include="Objects.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Texturen.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Template_PrakCG.rc">
+      <Filter>Ressourcendateien</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
