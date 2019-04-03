@@ -130,9 +130,27 @@ void kran::draw()
 
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.6f, 1.0f, -2.0f);	//Untenlinks
 	glTexCoord2f(1.0f, 0.0f); glVertex3f(0.6f, 1.0f, -2.0f);	//Untenrechts
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.6f, 2.0f, -2.0f);		//Oben rechts
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.6f, 2.0f, -2.0f);	//Oben links
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.6f, 1.9f, -2.0f);		//Oben rechts
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.6f, 1.9f, -2.0f);	//Oben links
 	glEnd();
+
+	textures[MaximaleTragkraft].bind();
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glCullFace(GL_FRONT);
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);									// Polygon ist GELB
+	glNormal3f(0, 0, -1);									// Normale ist Z
+
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.6f, 1.0f, -2.0f);	//Untenlinks
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.6f, 1.0f, -2.0f);	//Untenrechts
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.6f, 1.9f, -2.0f);		//Oben rechts
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.6f, 1.9f, -2.0f);	//Oben links
+	glEnd();
+
 	glDisable(GL_TEXTURE_2D);
 	
 	/*
