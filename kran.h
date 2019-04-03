@@ -11,6 +11,7 @@ public:
 	void setHeadlight();
 	void setAttachableLight();
 	void canAttach();
+	void setSchild();
 	float speedKrangerust;
 	float speedHook;
 	float speedHookdown;
