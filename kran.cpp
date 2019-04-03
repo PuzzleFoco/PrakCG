@@ -99,24 +99,16 @@ void kran::draw()
 	glPopMatrix();
 	glPopMatrix();
 	setAttachableLight();
+	rotatingLight();
 	glPopMatrix();
 	setHeadlight();
 }
 
-void kran::setHeadlight()
-{
+void kran::rotatingLight() {
 	static bool init = true;
-	static cg_light spot(6);
 	static cg_light r(7);
 
 	if (init) {
-
-		spot.setPosition(3.0f, 0.0f, 17.0f, 1.0f);
-		spot.setSpotlight(0.0f, 0.0f, -1.0f, 20.0f, 64.0f);
-		spot.setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
-		spot.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
-		spot.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
-
 		/*
 		l.setAmbient(0.5, 0.5, 0.5, 1); //Ganzheitliches Leuchten
 		l.setDiffuse(0.2, 0.2, 1, 1);		//Volumenleuchten
@@ -131,7 +123,7 @@ void kran::setHeadlight()
 		GL_Licht: GL_LIGHT7
 		*/
 
-		r.setPosition(posKrangerust, 2.2 , posHook, 1);
+		r.setPosition(posKrangerust, 2.2, posHook, 1);
 		r.setSpotlight(0.0, -0.3, 1.0, 20.0, 10.0);
 		r.setAmbient(0.1, 0.1, 0.1, 1.0);
 		r.setDiffuse(0.2, 0.2, 1.0, 1.0);
@@ -139,22 +131,6 @@ void kran::setHeadlight()
 		r.setAttentuation(1.0, 0.05, 0.0);
 		init = false;
 	}
-
-
-	if (spotlight) {
-		set_obj_material(blender[Spotlight],1.0, 1.0, 0.0, 1.0, 1.3, 46.0, 0.0);
-		spot.enable();
-	}
-	else {
-		set_obj_material(blender[Spotlight], 0.1, 0.1, 0.0, 1.0, 1.3, 46.0, 0.0);
-		spot.disable();
-	}
-
-	spot.draw();
-	glPushMatrix();
-		glTranslatef(0.0f, 0.0f, 17.0f);
-		drawobject(blender[Spotlight]);
-	glPopMatrix();
 
 	static float w = 0.0; //Drehwinkel der Rundumleuchte
 	if (rotatinglight) {
@@ -180,6 +156,38 @@ void kran::setHeadlight()
 	glTranslatef(0, 0, 0.15);
 	gluDisk(q, 0.0, 0.05, 30, 30);
 	gluDeleteQuadric(q);
+	glPopMatrix();
+}
+
+void kran::setHeadlight()
+{
+	static bool init = true;
+	static cg_light spot(6);
+
+	if (init) {
+
+		spot.setPosition(3.0f, 0.0f, 17.0f, 1.0f);
+		spot.setSpotlight(0.0f, 0.0f, -1.0f, 20.0f, 64.0f);
+		spot.setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
+		spot.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
+		spot.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
+
+	}
+
+
+	if (spotlight) {
+		set_obj_material(blender[Spotlight],1.0, 1.0, 0.0, 1.0, 1.3, 46.0, 0.0);
+		spot.enable();
+	}
+	else {
+		set_obj_material(blender[Spotlight], 0.1, 0.1, 0.0, 1.0, 1.3, 46.0, 0.0);
+		spot.disable();
+	}
+
+	spot.draw();
+	glPushMatrix();
+		glTranslatef(0.0f, 0.0f, 17.0f);
+		drawobject(blender[Spotlight]);
 	glPopMatrix();
 }
 

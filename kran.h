@@ -8,6 +8,7 @@ public:
 	kran();
 	void update();
 	void draw();
+	void rotatingLight();
 	void setHeadlight();
 	void setAttachableLight();
 	void canAttach();
