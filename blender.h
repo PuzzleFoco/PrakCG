@@ -13,7 +13,7 @@ enum blenderObjects {
 	HMitte,
 	cargo,
 	Spotlight,
-	Schild
+	Cube
 };
 
 void loadObjects();

@@ -84,7 +84,7 @@ void kran::draw()
 	glPushMatrix();
 	glTranslatef(posKrangerust, 0, 0);
 	drawobject(blender[Krangerust]);
-
+	
 	setSchild();
 
 	glPushMatrix();
@@ -157,6 +157,17 @@ void kran::rotatingLight() {
 	gluDisk(q, 0.0, 0.05, 30, 30);
 	gluDeleteQuadric(q);
 	glPopMatrix();
+
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glTranslatef(0, hookdown + 2.3, 0);
+		drawobject(blender[Cube]);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+
+	
 }
 
 void kran::setHeadlight()

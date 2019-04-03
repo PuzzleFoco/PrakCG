@@ -10,7 +10,7 @@ const char* blender_paths[num_objects] = {
 	"HMitte.obj" ,
 	"cargo.obj" ,
 	"Spotlight.obj",
-	"Schild.obj"
+	"Cube.obj"
 };
 
 void loadObjects() {
@@ -28,6 +28,7 @@ void loadObjects() {
 	set_obj_material(blender[Rail], 0.2, 0.2, 0.2, 1.0, 1.3, 46.0, 0.0);
 	set_obj_material(blender[Kranhookstab], 0.3, 0.3, 0.3, 1.0, 1.4, 100.0, 0.0);
 	set_obj_material(blender[HMitte], 0.9, 0.5, 0.1, 1.0, 1.2, 64.0, 0.0);
+	set_obj_material(blender[Cube], 0.5, 0.5, 0.9, 0.3, 0.5, 80.0, 0.0);
 }
 
 void freeObjects() {
