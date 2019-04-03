@@ -98,6 +98,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="kran.cpp" />
     <ClCompile Include="light.cpp" />
+    <ClCompile Include="MyCube.cpp" />
     <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Template_PrakCG.cpp" />
     <ClCompile Include="Texturen.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="kran.h" />
     <ClInclude Include="light.h" />
+    <ClInclude Include="MyCube.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Texturen.h" />
     <ClInclude Include="wavefront.h" />

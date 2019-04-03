@@ -7,6 +7,7 @@
 #include "light.h"
 #include "Objects.h"
 #include "Texturen.h"
+#include "MyCube.h"
 
 kran::kran()
 {
@@ -83,7 +84,9 @@ void kran::draw()
 	glPushMatrix();
 	glTranslatef(posKrangerust, 0, 0);
 	drawobject(blender[Krangerust]);
+	
 
+	/*
 	glColor3f(1, 1, 1);
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 
@@ -111,7 +114,10 @@ void kran::draw()
 	
 	// Quadric löschen
 	gluDeleteQuadric(quadric);
-	/*
+	*/
+	glEnable(GL_TEXTURE_2D);
+	textures[MaximaleTragkraft].bind();
+	
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -127,7 +133,8 @@ void kran::draw()
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.6f, 2.0f, -2.0f);		//Oben rechts
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.6f, 2.0f, -2.0f);	//Oben links
 	glEnd();
-	*/
+	glDisable(GL_TEXTURE_2D);
+	
 	/*
 	glEnable(GL_TEXTURE_2D);
 	textures[MaximaleTragkraft].bind();
