@@ -56,6 +56,8 @@ const char *spalte3[] =
 	"c,C    - Backfaceculling (An/Aus)",
 	"Licht Rot -> Ab-/ankoppeln unmöglich",
 	"Licht Gruen -> Ab-ankoppeln möglich",
+	"i,I    - Ersten Kameramodus resetten"
+	"e,E    - Hauptlicht (An/Aus)"
 	"",
 	"ESC    - Beenden",
 
@@ -68,6 +70,7 @@ void drawScene();		// Zeichnet die Szene im Weltkoordinatensystem
 
 void initTextures();
 void loadObjects();
+bool bigLight = true;
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +164,8 @@ void displayFunc()
 
 		SetMaterial(GL_FRONT_AND_BACK, m_amb, m_diff, m_spec, m_shine, m_emiss);
 
-		SetLights();
+		SetLights(bigLight);
+		
 
 		glEnable(GL_LIGHTING);
 	}
@@ -232,7 +236,7 @@ void setCamera()
 	
 	else if (cameraMode == 1)
 	{
-		gluLookAt(objects.kra.posKrangerust, 10, objects.kra.posHook,
+		gluLookAt(objects.kra.posKrangerust, 20, objects.kra.posHook,
 			objects.kra.posKrangerust, 1, objects.kra.posHook,
 			5, 0, 0);
 	}
@@ -248,15 +252,15 @@ void setCamera()
 
 void drawScene()
 {
-	// Zeichnet die Szene 1x im Weltkoordinatensystem
-
-	// TODO: Boden bei Y=0 zeichnen
-	/*
-	objects[GROUND_OBJ1].draw();
-	objects[GROUND_OBJ2].draw();
-	*/
 	// Animationsparameter berechnen
 	cg_key key;
+
+	if (1 == key.keyState('y') || 1 == key.keyState('Y'))		// Kameramodus wechseln
+	{
+		cameraMode = ++cameraMode % 3;
+		cg_globState::cameraHelper[0] = 0;
+		cg_globState::cameraHelper[1] = 0;
+	}
 
 	if (key.specialKeyState(GLUT_KEY_UP))			objects.kra.speedKrangerust += 0.25f;	// Beschleunigen
 	else if (key.specialKeyState(GLUT_KEY_DOWN))	objects.kra.speedKrangerust -= 0.25f;	// Bremsen
@@ -277,55 +281,42 @@ void drawScene()
 
 	if (key.keyState('t') == 1|| key.keyState('T') == 1) objects.kra.spotlight = !objects.kra.spotlight;
 
-	/*
-	if (key.keyState('1')) kra.eins += 0.1;
-	if (key.keyState('4')) kra.eins -= 0.1;
-	if (key.keyState('2')) kra.zwei += 0.1;
-	if (key.keyState('5')) kra.zwei -= 0.1;
-	if (key.keyState('3')) kra.drei += 0.1;
-	if (key.keyState('6')) kra.drei -= 0.1;
+	if (key.keyState('e') == 1|| key.keyState('E') == 1) bigLight = !bigLight;
 
-	cout << "Eins: " << kra.eins << " Zwei: " << kra.zwei << " Drei: " << kra.drei << endl;
-	*/
 
 	if (key.specialKeyState(GLUT_KEY_PAGE_UP))
 	{
-		objects.kra.hookRotate++;
-		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
-			if (it->isAttached) it->rotated++;
-			if (it->rotated > objects.kra.hookRotate) it->rotated = objects.kra.hookRotate;
+		if ((objects.kra.posHook < 0.9) && (objects.kra.posHook > -0.9)) {
+			objects.kra.hookRotate++;
+			for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
+				if (it->isAttached) it->rotated++;
+				if (it->rotated > objects.kra.hookRotate) it->rotated = objects.kra.hookRotate;
+			}
 		}
 	}
 	else if (key.specialKeyState(GLUT_KEY_PAGE_DOWN)) {
-		objects.kra.hookRotate--;
-		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
-			if (it->isAttached) it->rotated--;
-			if (it->rotated < objects.kra.hookRotate) it->rotated = objects.kra.hookRotate;
+		if ((objects.kra.posHook < 0.9) && (objects.kra.posHook > -0.9)) {
+			objects.kra.hookRotate--;
+			for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
+				if (it->isAttached) it->rotated--;
+				if (it->rotated < objects.kra.hookRotate) it->rotated = objects.kra.hookRotate;
+			}
 		}
 	}
 
-	
 	if (key.keyState(char(13)) == 1) {
 		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
 			it->attatch(objects.kra);
 		}
 	}
 
-	//glEnable(GL_TEXTURE_2D);
 	objects.kra.update();
 	objects.kra.draw();
-	//glDisable(GL_TEXTURE_2D);
 	
 	for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
 		it->update(objects.kra);
 		it->draw();
 	}	
 	
-	// TODO: Kameramodus wechseln
-	if (1 == key.keyState('y') || 1 == key.keyState('Y'))		// Kameramodus wechseln
-	{
-		cameraMode = ++cameraMode % 3;
-		cg_globState::cameraHelper[0] = 0;
-		cg_globState::cameraHelper[1] = 0;
-	}	
+	
 }

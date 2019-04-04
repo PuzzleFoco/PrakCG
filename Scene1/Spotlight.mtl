@@ -1,0 +1,45 @@
+# Blender MTL File: 'Kran.blend'
+# Material Count: 4
+
+newmtl blackshadelight.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\fabiu\\OneDrive\\Desktop\\PrakCG_U10 - Kopie\\Textures\\spot-lights & texture\\blackshade1.jpg
+
+newmtl lambert_back.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\fabiu\\OneDrive\\Desktop\\PrakCG_U10 - Kopie\\Textures\\spot-lights & texture\\blackshade.jpg
+
+newmtl offwhiteshade.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\fabiu\\OneDrive\\Desktop\\PrakCG_U10 - Kopie\\Textures\\spot-lights & texture\\offwhite.jpg
+
+newmtl whiteshade.001
+Ns 94.117647
+Ka 1.000000 1.000000 1.000000
+Kd 0.712000 0.712000 0.712000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2

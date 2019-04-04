@@ -3,7 +3,7 @@
 #include "wavefront.h"
 
 
-#define num_objects 8
+#define num_objects 9
 extern object3D *blender[num_objects];
 enum blenderObjects {
 	Krangerust,
@@ -13,7 +13,8 @@ enum blenderObjects {
 	HMitte,
 	cargo,
 	Spotlight,
-	Cube
+	Cube,
+	Rader
 };
 
 void loadObjects();

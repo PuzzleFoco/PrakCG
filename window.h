@@ -11,7 +11,7 @@
 //	Fenster Initialisierung
 /////////////////////////////////////////////////////////////////////////////////
 //! Fenstertitel
-#define PROG_NAME	"PrakCG-Template"
+#define PROG_NAME	"PrakCG-Fabius Engel"
 
 //! Die Startposition des Fensters (linke, obere Ecke)
 #define WIN_POS_X	0

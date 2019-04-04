@@ -9,7 +9,7 @@ double cg_globState::screenSize[] = {0};
 GLenum cg_globState::drawMode = GL_FILL;
 bool cg_globState::lightMode = true;
 int cg_globState::normalMode = 0;
-bool cg_globState::cullMode = false;
+bool cg_globState::cullMode = true;
 int cg_globState::cameraHelper[] = {0};
 
 
@@ -40,7 +40,7 @@ void init ( int argc, char **argv )
 	glutAddMenuEntry ( MENU_TEXT_PER_SURFACE_NORMALS, ID_MENU_PER_SURFACE_NORMALS );
 	glutAddMenuEntry ( MENU_TEXT_PER_VERTEX_NORMALS, ID_MENU_PER_VERTEX_NORMALS );
 	glutAddMenuEntry ( MENU_TEXT_EXIT, ID_MENU_EXIT );
-	glutAttachMenu ( GLUT_RIGHT_BUTTON );		// Menue haengt an der rechten Maustaste
+	//glutAttachMenu ( GLUT_RIGHT_BUTTON );		// Menue haengt an der rechten Maustaste
 
 	// Callbackfunktionen binden
 	glutDisplayFunc ( displayFunc );

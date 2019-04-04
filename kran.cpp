@@ -18,7 +18,7 @@ kran::kran()
 	posHook = 0;
 	hookdown = 0;
 	hookRotate = 0;
-	hookMitteScale = 0;
+	wheelrot = 0;
 	rotatinglight = true;
 	spotlight = true;
 	isAttachable = false;
@@ -74,6 +74,11 @@ void kran::update()
 	speedKrangerust *= 0.9f; //Reibung
 	speedHook *= 0.9f; //Reibung 
 	speedHookdown *= 0.8f;
+
+	// Berechnung des Drehwinkels für die Räder: myTruck.wheelrot
+	wheelrot += 360.0f / (2.0f * M_PI) * speedKrangerust;
+	if (wheelrot > 360.0f) wheelrot -= 360.0f;
+	if (wheelrot < -360.0f) wheelrot += 360.0f;
 }
 
 void kran::draw()
@@ -84,7 +89,7 @@ void kran::draw()
 	glPushMatrix();
 	glTranslatef(posKrangerust, 0, 0);
 	drawobject(blender[Krangerust]);
-	
+	//drawRader();
 	setSchild();
 
 	glPushMatrix();
@@ -162,13 +167,15 @@ void kran::rotatingLight() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glTranslatef(0, hookdown + 2.3, 0);
+		glTranslatef(0, hookdown + 2.2, 0);
 		glScalef(0.8, 0.8, 0.8);
 		drawobject(blender[Cube]);
 		glDisable(GL_BLEND);
 	glPopMatrix();
 }
 
+
+//
 void kran::setHeadlight()
 {
 	static bool init = true;
@@ -176,12 +183,12 @@ void kran::setHeadlight()
 
 	if (init) {
 
-		spot.setPosition(3.0f, 0.0f, 17.0f, 1.0f);
+		spot.setPosition(2.0f, 0.0f, 8.0f, 1.0f);
 		spot.setSpotlight(0.0f, 0.0f, -1.0f, 20.0f, 64.0f);
 		spot.setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
 		spot.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
 		spot.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
-
+		init = false;
 	}
 
 
@@ -196,7 +203,8 @@ void kran::setHeadlight()
 
 	spot.draw();
 	glPushMatrix();
-		glTranslatef(0.0f, 0.0f, 17.0f);
+		glTranslatef(spot.pos[0], spot.pos[1], spot.pos[2]);
+		glRotatef(270, 0, 1, 0);
 		drawobject(blender[Spotlight]);
 	glPopMatrix();
 }
@@ -204,22 +212,23 @@ void kran::setHeadlight()
 void kran::setAttachableLight()
 {
 	static bool init = true;
-	static cg_light point(6);
+	static cg_light point(5);
 	if (init) 
 	{
-			point.setPosition(1.0f, 2.0f, 2.0f, 1.0f);
-			point.setAmbient(0.1f, 0.1f, 0.1f, 1.0f);
-			point.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
-			point.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
+		point.setPosition(1.0f, 2.0f, 2.0f, 1.0f);
+		point.setAmbient(0.01f, 0.01f, 0.01f, 0.0f);
+		point.setDiffuse(0.2f, 0.2f, 0.2f, 1.0f);
+		point.setSpecular(0.02f, 0.02f, 0.02f, 0.0f);
+		init = false;
 	}
 	if (isAttachable) {
 		glColor3f(0, 1, 0);
-		point.setDiffuse(0.2, 1, 0.2, 1);
+		point.setDiffuse(0.01, 0.2, 0.01, 1);
 		point.enable();
 	}
 	else {
 		glColor3f(1, 0, 0);
-		point.setDiffuse(1, 0.2, 0.2, 1);
+		point.setDiffuse(0.2, 0.01, 0.01, 1);
 		point.enable();
 	}
 	point.draw();
@@ -312,7 +321,7 @@ void kran::drawground()
 	GLfloat curZ = 0.0;
 
 	glPushMatrix();
-	glTranslatef(-sizeX / 2.0, posZ, -sizeZ / 2.0);	// der Boden soll mittig liegen
+	glTranslatef(-sizeX / 2.0, posZ - 0.05, -sizeZ / 2.0);	// der Boden soll mittig liegen
 
 	glNormal3f(0, 1.0, 0);							// und die Normale in Richtung Y zeigen (nach oben)
 										// wenn wir traditionell zeichnen
@@ -337,5 +346,20 @@ void kran::drawground()
 	
 
 	glDisable(GL_COLOR_MATERIAL);								// glColor() setzt nur noch Farbwerte, keine Materialien
+	glPopMatrix();
+}
+
+
+void kran::drawRader()
+{
+	glPushMatrix();
+	glRotatef(wheelrot, 1.0, 0.0, 0.0);
+	drawobject(blender[Rader]);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0, 0, 4);
+	glRotatef(wheelrot, 1.0, 0.0, 0.0);
+	drawobject(blender[Rader]);
 	glPopMatrix();
 }

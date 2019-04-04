@@ -17,7 +17,7 @@ void SetMaterial ( GLenum face, GLfloat amb[4], GLfloat diff[4], GLfloat spec[4]
 void SetLightColors ( GLenum lightid, GLfloat amb[4], GLfloat diff[4], GLfloat spec[4] );
 
 // Lichtquellen setzen
-void SetLights ();
+void SetLights (bool enable);
 
 
 

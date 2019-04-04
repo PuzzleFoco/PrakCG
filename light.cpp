@@ -13,7 +13,7 @@ void SetMaterial ( GLenum face, GLfloat amb[4], GLfloat diff[4], GLfloat spec[4]
 }
 
 
-void SetLights ()
+void SetLights (bool enable)
 {
 	// Parameter eines globalen Lichts
 	GLint g_localviewer = GL_TRUE;
@@ -34,7 +34,8 @@ void SetLights ()
 	l.setSpecular( 1.0f, 1.0f, 1.0f, 1.0f );
 	l.setSpotlight( 0.0f, 0.0f, 0.0f, 180.0f, 0.0f );
 	l.setAttentuation( 1.0f, 0.0f, 0.0f );
-	l.enable();
+	if(enable)	l.enable();
+	else l.disable();
 	l.draw();
 	
 }
