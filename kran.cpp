@@ -194,10 +194,12 @@ void kran::setHeadlight()
 
 	if (spotlight) {
 		set_obj_material(blender[Spotlight],1.0, 1.0, 0.0, 1.0, 1.3, 46.0, 0.0);
+		spot.setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
 		spot.enable();
 	}
 	else {
 		set_obj_material(blender[Spotlight], 0.1, 0.1, 0.0, 1.0, 1.3, 46.0, 0.0);
+		spot.setAmbient(1.0f, 1.0f, 1.0f, 1.0f);
 		spot.disable();
 	}
 
@@ -216,7 +218,7 @@ void kran::setAttachableLight()
 	if (init) 
 	{
 		point.setPosition(1.0f, 2.0f, 2.0f, 1.0f);
-		point.setAmbient(0.01f, 0.01f, 0.01f, 0.0f);
+		point.setAmbient(0.5f, 0.5f, 0.5f, 1.0f);
 		point.setDiffuse(0.2f, 0.2f, 0.2f, 1.0f);
 		point.setSpecular(0.02f, 0.02f, 0.02f, 0.0f);
 		init = false;
