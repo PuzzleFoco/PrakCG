@@ -13,6 +13,7 @@ public:
 	void setAttachableLight();
 	void canAttach();
 	void setSchild();
+	void drawground();
 	float speedKrangerust;
 	float speedHook;
 	float speedHookdown;

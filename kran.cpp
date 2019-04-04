@@ -97,11 +97,12 @@ void kran::draw()
 	drawobject(blender[Kranhookstab]);
 	drawobject(blender[HMitte]);
 	glPopMatrix();
-	glPopMatrix();
-	setAttachableLight();
 	rotatingLight();
 	glPopMatrix();
+	setAttachableLight();
+	glPopMatrix();
 	setHeadlight();
+	drawground();
 }
 
 void kran::rotatingLight() {
@@ -149,25 +150,23 @@ void kran::rotatingLight() {
 
 	// Objekt
 	glPushMatrix();
-	glTranslatef(r.pos[0], r.pos[1], r.pos[2]);
-	glRotatef(w, 0, 1, 0);
-	GLUquadricObj *q = gluNewQuadric();
-	gluCylinder(q, 0.0, 0.05, 0.15, 20.0, 20.0);
-	glTranslatef(0, 0, 0.15);
-	gluDisk(q, 0.0, 0.05, 30, 30);
-	gluDeleteQuadric(q);
+		glTranslatef(r.pos[0], r.pos[1], r.pos[2]);
+		glRotatef(w, 0, 1, 0);
+		GLUquadricObj *q = gluNewQuadric();
+		gluCylinder(q, 0.0, 0.05, 0.15, 20.0, 20.0);
+		glTranslatef(0, 0, 0.15);
+		gluDisk(q, 0.0, 0.05, 30, 30);
+		gluDeleteQuadric(q);
 	glPopMatrix();
 
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glTranslatef(0, hookdown + 2.3, 0);
+		glScalef(0.8, 0.8, 0.8);
 		drawobject(blender[Cube]);
 		glDisable(GL_BLEND);
 	glPopMatrix();
-
-
-	
 }
 
 void kran::setHeadlight()
@@ -208,10 +207,10 @@ void kran::setAttachableLight()
 	static cg_light point(6);
 	if (init) 
 	{
-		point.setPosition(1.0f, 2.0f, 2.0f, 1.0f);
-		point.setAmbient(0.1f, 0.1f, 0.1f, 1.0f);
-		point.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
-		point.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
+			point.setPosition(1.0f, 2.0f, 2.0f, 1.0f);
+			point.setAmbient(0.1f, 0.1f, 0.1f, 1.0f);
+			point.setDiffuse(0.9f, 0.9f, 0.9f, 1.0f);
+			point.setSpecular(0.9f, 0.9f, 0.9f, 1.0f);
 	}
 	if (isAttachable) {
 		glColor3f(0, 1, 0);
@@ -268,6 +267,8 @@ void kran::setSchild() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBegin(GL_QUADS);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
 	glColor3f(1, 1, 1);									// Polygon ist GELB
 	glNormal3f(0, 0, 1);									// Normale ist Z
 
@@ -292,7 +293,61 @@ void kran::setSchild() {
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.6f, 1.9f, -2.0f);		//Oben rechts
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.6f, 1.9f, -2.0f);	//Oben links
 	glEnd();
+	glDisable(GL_CULL_FACE);
 
 	glDisable(GL_TEXTURE_2D);
 }
 
+void kran::drawground() 
+{
+	int tessX, tessZ;
+	tessX = 200;
+	tessZ = 200;
+
+	int useVBOs = 0;
+
+	float sizeX, sizeZ;
+	sizeX = 20;
+	sizeZ = 20;
+
+	// Untergrund aus einem Array von Quadstrips
+
+	if (!tessX) tessX = 1;						// Vermeiden DIV/0, d.h. wir haben immer mind. 1 Quad
+	if (!tessZ) tessZ = 1;
+
+	float stepX = sizeX / tessX;					// die "Schrittweite", d.h. Größe eines Quads in Modellkoordinaten
+	float stepZ = sizeZ / tessZ;
+
+	float posZ = 0.0;								// wir beginnen bei Z == 0
+
+	GLfloat curX = 0.0;								// und bei X == 0
+	GLfloat curZ = 0.0;
+
+	glPushMatrix();
+	glTranslatef(-sizeX / 2.0, posZ, -sizeZ / 2.0);	// der Boden soll mittig liegen
+
+	glNormal3f(0, 1.0, 0);							// und die Normale in Richtung Y zeigen (nach oben)
+										// wenn wir traditionell zeichnen
+	for (int n = 0; n <= tessZ; n++)				// arbeiten wir uns zeilenweise von 0 bis tessZ vorwärts
+	{
+		curX = 0.0;									// Beginnen an den aktuellen Quadstrip bei X == 0
+
+		glBegin(GL_QUAD_STRIP);
+		glColor3f(0.6, 0.6, 0.6);
+		for (int i = 0; i <= tessX; i++)			// und gehen bis X == tessX
+		{
+				glVertex3f(curX, 0.0, curZ);			// generieren die Vertices
+				glVertex3f(curX, 0.0, curZ + stepZ);
+
+				//glMatrixMode(GL_TEXTURE);
+
+				curX = curX + stepX;					// und gehen einen Schritt weiter
+			}
+		glEnd();									// und schließen den aktuellen Quadstrip ab
+		curZ = curZ + stepZ;						// und gehen zur nächsten Zeile
+	}
+	
+
+	glDisable(GL_COLOR_MATERIAL);								// glColor() setzt nur noch Farbwerte, keine Materialien
+	glPopMatrix();
+}
