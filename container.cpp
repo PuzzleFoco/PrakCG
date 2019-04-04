@@ -2,6 +2,7 @@
 #include "container.h"
 #include "kran.h"
 #include "blender.h"
+#include "Texturen.h"
 
 container::container()
 {
@@ -46,10 +47,10 @@ void container::draw()
 		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f, 1.6f, 0.0f);
 		glEnd();
 		*/
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		drawobject(blender[cargo]);
-		glDisable(GL_BLEND);
+		//glDisable(GL_BLEND);
 	glPopMatrix();
 }
 

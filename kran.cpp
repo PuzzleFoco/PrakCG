@@ -124,7 +124,7 @@ void kran::rotatingLight() {
 		GL_Licht: GL_LIGHT7
 		*/
 
-		r.setPosition(posKrangerust, 2.2, posHook, 1);
+		r.setPosition(posKrangerust, hookdown + 2.2, posHook, 1);
 		r.setSpotlight(0.0, -0.3, 1.0, 20.0, 10.0);
 		r.setAmbient(0.1, 0.1, 0.1, 1.0);
 		r.setDiffuse(0.2, 0.2, 1.0, 1.0);
@@ -150,7 +150,7 @@ void kran::rotatingLight() {
 
 	// Objekt
 	glPushMatrix();
-		glTranslatef(r.pos[0], r.pos[1], r.pos[2]);
+		glTranslatef(r.pos[0], hookdown+2.2, r.pos[2]);
 		glRotatef(w, 0, 1, 0);
 		GLUquadricObj *q = gluNewQuadric();
 		gluCylinder(q, 0.0, 0.05, 0.15, 20.0, 20.0);
@@ -267,8 +267,6 @@ void kran::setSchild() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBegin(GL_QUADS);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
 	glColor3f(1, 1, 1);									// Polygon ist GELB
 	glNormal3f(0, 0, 1);									// Normale ist Z
 
@@ -277,25 +275,15 @@ void kran::setSchild() {
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.6f, 1.9f, -2.0f);		//Oben rechts
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.6f, 1.9f, -2.0f);	//Oben links
 	glEnd();
-
-	textures[MaximaleTragkraft].bind();
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);									// Polygon ist GELB
-	glNormal3f(0, 0, -1);									// Normale ist Z
-
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.6f, 1.0f, -2.0f);	//Untenlinks
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.6f, 1.0f, -2.0f);	//Untenrechts
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.6f, 1.9f, -2.0f);		//Oben rechts
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.6f, 1.9f, -2.0f);	//Oben links
-	glEnd();
-	glDisable(GL_CULL_FACE);
-
 	glDisable(GL_TEXTURE_2D);
+
+	glPushMatrix();
+		glTranslatef(0, 1.45, -2.01);
+		glScalef(1.2, 0.9, 0.01);
+		glColor3f(0.8, 0.8, 0.8);
+		MyCube cube;
+		cube.draw();
+	glPopMatrix();	
 }
 
 void kran::drawground() 
