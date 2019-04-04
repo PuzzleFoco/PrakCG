@@ -12,9 +12,10 @@
 bool cg_help::showhelp = false, cg_help::showfps = true, cg_help::wireframe = false, cg_help::koordsystem = true;
 int cg_help::frames = 0;
 float cg_help::fps = 0.0f, cg_help::bg_size = 0.8f, cg_help::shadow = 0.003f;
-const char * cg_help::title = "PrakCG Template V2.0,  TU-Chemnitz, 2016";
+const char * cg_help::title = "PrakCG Fabius Engel,  TU-Chemnitz, 2019";
 extern const char *spalte1[];
 extern const char *spalte2[];
+extern const char *spalte3[];
 
 
 void  cg_help::toggle ()
@@ -148,7 +149,7 @@ void cg_help::draw ()
 		int i = 0;
 		while ( spalte1[i] )
 		{
-			printText ( -0.6f, posy, spalte1[i], GLUT_BITMAP_9_BY_15 );
+			printText ( -0.7f, posy, spalte1[i], GLUT_BITMAP_9_BY_15 );
 			posy -= 0.1f;
 			++i;
 		}
@@ -156,7 +157,15 @@ void cg_help::draw ()
 		i = 0;
 		while ( spalte2[i] )
 		{
-			printText ( 0.05f, posy, spalte2[i], GLUT_BITMAP_9_BY_15 );
+			printText ( -0.3f, posy, spalte2[i], GLUT_BITMAP_9_BY_15 );
+			posy -= 0.1f;
+			++i;
+		}
+		posy = 0.5f;
+		i = 0;
+		while (spalte3[i])
+		{
+			printText(0.1f, posy, spalte3[i], GLUT_BITMAP_9_BY_15);
 			posy -= 0.1f;
 			++i;
 		}

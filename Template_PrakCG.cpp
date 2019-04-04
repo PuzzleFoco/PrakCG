@@ -39,11 +39,23 @@ const char *spalte2[] =
 	"h,H,F1 - Hilfe (An/Aus)",
 	"w,W    - WireFrame (An/Aus)",
 	"k,K    - Koordinatensystem (An/Aus)",
-	"Cursor - Fahren/Lenken des Trucks",
-	"Enter  - An-/Abkoppeln des Trailers",
-	"x,X    - Scheinwerfer (An/Aus)",
+	"Pfeiltasten    - Lenken des Krans",
+	"Enter  - An-/Abkoppeln des Containers",
+	"Bild Up/Down  - Rotieren des Containers",
+	"+,-    - Container anheben/absenken",
+	"x,X    - Rotationslicht (An/Aus)",
+	"t,T    - Punktstrahler (An/Aus)",
+
+	NULL
+};
+
+const char *spalte3[] =
+{
+	"t,T    - Punkstrahler (An/Aus)",
 	"y,Y    - Kameramodus wechseln",
-	"r,R    - Truck und Trailer resetten",
+	"c,C    - Backfaceculling (An/Aus)",
+	"Licht Rot -> Ab-/ankoppeln unmöglich",
+	"Licht Gruen -> Ab-ankoppeln möglich",
 	"",
 	"ESC    - Beenden",
 

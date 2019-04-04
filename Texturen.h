@@ -8,7 +8,7 @@ extern cg_image textures[NUM_TEXTURES];
 enum texturObjekte {
 	//Metalldings,
 	MaximaleTragkraft,
-	Beton
+	Container
 };
 
 void initTextures();
