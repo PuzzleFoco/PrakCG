@@ -51,13 +51,13 @@ const char *spalte2[] =
 
 const char *spalte3[] =
 {
+	"e,E    - Hauptlicht (An/Aus)",
 	"t,T    - Punkstrahler (An/Aus)",
 	"y,Y    - Kameramodus wechseln",
 	"c,C    - Backfaceculling (An/Aus)",
 	"Licht Rot -> Ab-/ankoppeln unmöglich",
 	"Licht Gruen -> Ab-ankoppeln möglich",
-	"i,I    - Ersten Kameramodus resetten"
-	"e,E    - Hauptlicht (An/Aus)"
+	"i,I    - Ersten Kameramodus resetten",
 	"",
 	"ESC    - Beenden",
 
