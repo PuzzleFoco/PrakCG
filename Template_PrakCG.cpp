@@ -268,6 +268,7 @@ void drawScene()
 	if (key.specialKeyState(GLUT_KEY_RIGHT))		objects.kra.speedHook += 0.25f;	// Beschleunigen
 	else if (key.specialKeyState(GLUT_KEY_LEFT))	objects.kra.speedHook -= 0.25f;	// Bremsen
 
+	//Hookstab hochfahren oder absenken
 	if (key.keyState('+'))
 	{
 		objects.kra.speedHookdown += 0.2f;
@@ -277,13 +278,16 @@ void drawScene()
 		objects.kra.speedHookdown -= 0.2f;
 	}
 
+	//Rotationslicht (An/Aus)
 	if (key.keyState('x') == 1|| key.keyState('X') == 1) objects.kra.rotatinglight = !objects.kra.rotatinglight;
 
+	//Spotlicht (An/Aus)
 	if (key.keyState('t') == 1|| key.keyState('T') == 1) objects.kra.spotlight = !objects.kra.spotlight;
 
+	//Hauptlicht (An/Aus)
 	if (key.keyState('e') == 1|| key.keyState('E') == 1) bigLight = !bigLight;
 
-
+	//Hookstab und Magnet (und ggf. Container rotieren)
 	if (key.specialKeyState(GLUT_KEY_PAGE_UP))
 	{
 		if ((objects.kra.posHook < 0.9) && (objects.kra.posHook > -0.9)) {
@@ -304,6 +308,7 @@ void drawScene()
 		}
 	}
 
+	//Container andocken/abdocken, falls möglich
 	if (key.keyState(char(13)) == 1) {
 		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
 			it->attatch(objects.kra);

@@ -14,16 +14,13 @@ public:
 	void canAttach();
 	void setSchild();
 	void drawground();
-	void drawRader();
 	float speedKrangerust;
 	float speedHook;
 	float speedHookdown;
 	float posKrangerust;
 	float posHook;
 	float hookdown;
-	float hookopen;
 	float hookRotate;
-	float hookMitteScale;
 	float wheelrot;
 	bool rotatinglight;
 	bool spotlight;

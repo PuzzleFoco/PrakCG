@@ -74,11 +74,6 @@ void kran::update()
 	speedKrangerust *= 0.9f; //Reibung
 	speedHook *= 0.9f; //Reibung 
 	speedHookdown *= 0.8f;
-
-	// Berechnung des Drehwinkels für die Räder: myTruck.wheelrot
-	wheelrot += 360.0f / (2.0f * M_PI) * speedKrangerust;
-	if (wheelrot > 360.0f) wheelrot -= 360.0f;
-	if (wheelrot < -360.0f) wheelrot += 360.0f;
 }
 
 void kran::draw()
@@ -116,14 +111,9 @@ void kran::rotatingLight() {
 
 	if (init) {
 		/*
-		l.setAmbient(0.5, 0.5, 0.5, 1); //Ganzheitliches Leuchten
-		l.setDiffuse(0.2, 0.2, 1, 1);		//Volumenleuchten
-		l.setSpecular(0.1, 0.1, 1, 1);	//Glanzleuchten
-		l.setAttentuation(1, 0.05, 0.0);	//Lichtabschwächung
-
 		Rundumleuchte
 		Position: posKrangerust, 2.2 , posHook
-		Farbe: blau
+		Farbe: gelb
 		halbe Öffnungswinkel: 20°
 		Exponent: 10
 		GL_Licht: GL_LIGHT7
@@ -139,6 +129,10 @@ void kran::rotatingLight() {
 	}
 
 	static float w = 0.0; //Drehwinkel der Rundumleuchte
+	//Wenn sich der Kran bewegt geht Licht an
+	if (speedKrangerust > 0.01) rotatinglight = true;
+	else if (speedHook > 0.01) rotatinglight = true;
+	else if(speedHookdown > 0.01) rotatinglight = true;
 	if (rotatinglight) {
 		w += 3;
 		r.enable();
@@ -278,7 +272,7 @@ void kran::setSchild() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);									// Polygon ist GELB
+	glColor3f(1, 1, 1);									
 	glNormal3f(0, 0, 1);									// Normale ist Z
 
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.6f, 1.0f, -2.0f);	//Untenlinks
@@ -311,57 +305,40 @@ void kran::drawground()
 
 	// Untergrund aus einem Array von Quadstrips
 
-	if (!tessX) tessX = 1;						// Vermeiden DIV/0, d.h. wir haben immer mind. 1 Quad
+	if (!tessX) tessX = 1;						
 	if (!tessZ) tessZ = 1;
 
-	float stepX = sizeX / tessX;					// die "Schrittweite", d.h. Größe eines Quads in Modellkoordinaten
+	float stepX = sizeX / tessX;					
 	float stepZ = sizeZ / tessZ;
 
-	float posZ = 0.0;								// wir beginnen bei Z == 0
+	float posZ = 0.0;								
 
-	GLfloat curX = 0.0;								// und bei X == 0
+	GLfloat curX = 0.0;								
 	GLfloat curZ = 0.0;
 
 	glPushMatrix();
-	glTranslatef(-sizeX / 2.0, posZ - 0.05, -sizeZ / 2.0);	// der Boden soll mittig liegen
+	glTranslatef(-sizeX / 2.0, posZ - 0.05, -sizeZ / 2.0);	
 
-	glNormal3f(0, 1.0, 0);							// und die Normale in Richtung Y zeigen (nach oben)
-										// wenn wir traditionell zeichnen
-	for (int n = 0; n <= tessZ; n++)				// arbeiten wir uns zeilenweise von 0 bis tessZ vorwärts
+	glNormal3f(0, 1.0, 0);							
+										
+	for (int n = 0; n <= tessZ; n++)				
 	{
-		curX = 0.0;									// Beginnen an den aktuellen Quadstrip bei X == 0
+		curX = 0.0;									
 
 		glBegin(GL_QUAD_STRIP);
 		glColor3f(0.6, 0.6, 0.6);
-		for (int i = 0; i <= tessX; i++)			// und gehen bis X == tessX
+		for (int i = 0; i <= tessX; i++)			
 		{
-				glVertex3f(curX, 0.0, curZ);			// generieren die Vertices
+				glVertex3f(curX, 0.0, curZ);			
 				glVertex3f(curX, 0.0, curZ + stepZ);
 
-				//glMatrixMode(GL_TEXTURE);
-
-				curX = curX + stepX;					// und gehen einen Schritt weiter
+				curX = curX + stepX;					
 			}
-		glEnd();									// und schließen den aktuellen Quadstrip ab
-		curZ = curZ + stepZ;						// und gehen zur nächsten Zeile
+		glEnd();									
+		curZ = curZ + stepZ;						
 	}
 	
 
-	glDisable(GL_COLOR_MATERIAL);								// glColor() setzt nur noch Farbwerte, keine Materialien
-	glPopMatrix();
-}
-
-
-void kran::drawRader()
-{
-	glPushMatrix();
-	glRotatef(wheelrot, 1.0, 0.0, 0.0);
-	drawobject(blender[Rader]);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0, 0, 4);
-	glRotatef(wheelrot, 1.0, 0.0, 0.0);
-	drawobject(blender[Rader]);
+	glDisable(GL_COLOR_MATERIAL);								
 	glPopMatrix();
 }

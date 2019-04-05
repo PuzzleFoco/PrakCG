@@ -2,7 +2,6 @@
 
 cg_image textures[NUM_TEXTURES];
 const char * texture_files[NUM_TEXTURES] = {
-									//"./Textures/metallbackground.bmp",
 									"./Textures/maximaleTragkraft.bmp",
 									"./Textures/container.bmp"
 };
