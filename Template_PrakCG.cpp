@@ -14,6 +14,7 @@
 #include "input.h"
 #include "light.h"
 #include "Objects.h"
+#include "kran.h"
 #include "Texturen.h"
 #include "blender.h"
 
@@ -58,6 +59,7 @@ const char *spalte3[] =
 	"Licht Rot -> Ab-/ankoppeln unmöglich",
 	"Licht Gruen -> Ab-ankoppeln möglich",
 	"i,I    - Ersten Kameramodus resetten",
+	"r,R    - Kran und Container resetten",
 	"",
 	"ESC    - Beenden",
 
@@ -312,6 +314,18 @@ void drawScene()
 	if (key.keyState(char(13)) == 1) {
 		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
 			it->attatch(objects.kra);
+		}
+	}
+
+	if (key.keyState('r') || key.keyState('R')) 
+	{
+		objects.kra = kran();
+		for (std::list<container>::iterator it = objects.listContainer.begin(); it != objects.listContainer.end(); ++it) {
+			it-> isAttached = false;
+			it->rotated = 0;
+			it->x = 0;
+			it->y = 0;
+			it->z = 0;
 		}
 	}
 
