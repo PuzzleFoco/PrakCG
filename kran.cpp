@@ -89,7 +89,7 @@ void kran::draw()
 	glPushMatrix();
 	glTranslatef(posKrangerust, 0, 0);
 	drawobject(blender[Krangerust]);
-	//drawRader();
+	
 	setSchild();
 
 	glPushMatrix();
@@ -132,8 +132,8 @@ void kran::rotatingLight() {
 		r.setPosition(posKrangerust, hookdown + 2.2, posHook, 1);
 		r.setSpotlight(0.0, -0.3, 1.0, 20.0, 10.0);
 		r.setAmbient(0.1, 0.1, 0.1, 1.0);
-		r.setDiffuse(0.2, 0.2, 1.0, 1.0);
-		r.setSpecular(0.2, 0.2, 1.0, 1.0);
+		r.setDiffuse(0.5, 0.5, 0.0, 1.0);
+		r.setSpecular(0.5, 0.5, 0.0, 1.0);
 		r.setAttentuation(1.0, 0.05, 0.0);
 		init = false;
 	}
@@ -145,7 +145,7 @@ void kran::rotatingLight() {
 
 		r.setSpotRotation(0, w, 0);
 		r.draw();
-		glColor3f(0.2, 0.2, 1.0);
+		glColor3f(0.5, 0.5, 0.0);
 	}
 	else {
 		r.disable();
